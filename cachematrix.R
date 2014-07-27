@@ -13,6 +13,7 @@
 ## calculate the inverse or return the cached version, but that wasn't the 
 ## assignment.
 makeCacheMatrix <- function(x = matrix()) {
+  # Returns a cache matrix structure
   inverse <- NULL
  
   # Whenever we change the matrix, we should remove the cached inverse
@@ -30,9 +31,19 @@ makeCacheMatrix <- function(x = matrix()) {
        get_inverse = get_inverse)
 }
 
-## Write a short comment describing this function
-
+## This function takes a caching matrix and finds the inverse.  If the inverse
+## has been calculated before, it simply returns the stored value, otherwise
+## it calculates and stores the inverse for future use.
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+  ## Return a matrix that is the inverse of 'x'
+  inv <- x$get_inverse()
+  if(!is.null(inv)) {
+    message("Getting cached inverse")
+    return(inv)
+  }
+  data <- x$get()
+  inv <- solve(data, ...)
+  x$set_inverse(inv)
+  inv
 }
 
