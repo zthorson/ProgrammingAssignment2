@@ -67,7 +67,7 @@ test_that("Inverse is calculated when calling solve for first time", {
     test_inv <- solve(test)
     
     expect_that(matrix$get_inverse(), is_null())
-    cacheSolve(matrix)
+    expect_that(cacheSolve(matrix), equals(test_inv))
     expect_that(matrix$get_inverse(), equals(test_inv))
     
 })
@@ -79,7 +79,7 @@ test_that("Inverse is recalculated when changing the underlying matrix", {
     
     matrix <- makeCacheMatrix(test)
     expect_that(matrix$get_inverse(), is_null())
-    cacheSolve(matrix)
+    expect_that(cacheSolve(matrix), equals(test_inv))
     expect_that(matrix$get_inverse(), equals(test_inv))
     
     test2 <- matrix(c(1,2,3,4), nrow=2, ncol=2)
