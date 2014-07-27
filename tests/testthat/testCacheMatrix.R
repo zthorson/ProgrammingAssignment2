@@ -27,21 +27,17 @@ test_that("Inversion can set and get", {
 
 test_that("Matrix is initialized", {
   matrix <- makeCacheMatrix()
-  
-  expect_that(matrix$get(), is_a(matrix))
+  expect_that(matrix$get(), is_a("matrix"))
 })
 
 test_that("Matrix value can set and get", {
   test_inverse <- matrix(c(2, 4, 3, 1, 5, 7), nrow=3, ncol=2)
   matrix <- makeCacheMatrix(test_inverse)
-  
   expect_that(matrix$get(), equals(test_inverse))
   
   test_inverse2 <- matrix(c(1,2,3,4), nrow=2, ncol=2)
-  matrix.set(test_inverse2)
-  
+  matrix$set(test_inverse2)
   expect_that(matrix$get(), equals(test_inverse2))
-  
 })
 
 test_that("Mean is reset when matrix is modified", {
@@ -52,7 +48,7 @@ test_that("Mean is reset when matrix is modified", {
   expect_that(matrix$get_inverse, not(is_null()))
   
   matrix$set(matrix(c(1,2,3,4,5,6), nrow=2, ncol=3))
-  expect_that(matrix$get_inverse, is_null())
+  expect_that(matrix$get_inverse(), is_null())
 })
   
 
